@@ -4,14 +4,22 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
+@EntityListeners(AuditingEntityListener.class)
 public class Usuario implements Serializable {
 
     @Id
@@ -28,12 +36,13 @@ public class Usuario implements Serializable {
     @Column(nullable = false, length = 25)
     private Role role = Role.ROLE_CLIENTE;
 
+    @CreatedDate
     private LocalDateTime dataCriacao;
-
+    @LastModifiedDate
     private LocalDateTime dataModificacao;
-
+    @CreatedBy
     private String criadoPor;
-
+    @LastModifiedBy
     private String modificadoPor;
 
     public enum Role {
