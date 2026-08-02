@@ -55,11 +55,6 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    @Transactional
-    public void delete(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
     @Transactional(readOnly = true)
     public Usuario buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username).orElseThrow(
