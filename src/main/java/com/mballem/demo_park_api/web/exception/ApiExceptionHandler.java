@@ -1,5 +1,6 @@
 package com.mballem.demo_park_api.web.exception;
 
+import com.mballem.demo_park_api.exception.CpfUniqueViolationException;
 import com.mballem.demo_park_api.exception.EntityNotFoundException;
 import com.mballem.demo_park_api.exception.PasswordInvalidException;
 import com.mballem.demo_park_api.exception.UsernameUniqueViolationException;
@@ -29,8 +30,8 @@ public class ApiExceptionHandler {
 
     }
 
-    @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> usernameUniqueViolationException(UsernameUniqueViolationException e, HttpServletRequest request){
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException e, HttpServletRequest request){
         log.error("Api Error - ", e);
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
